@@ -6,11 +6,12 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["clientExtensions"]
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_CONNECTION_URI")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum InstanceConnectionStatus {
