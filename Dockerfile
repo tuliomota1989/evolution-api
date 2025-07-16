@@ -11,7 +11,8 @@ WORKDIR /evolution
 
 COPY ./package.json ./tsconfig.json ./
 
-RUN npm install
+# ⚠️ ALTERADO AQUI
+RUN npm install --legacy-peer-deps
 
 COPY ./src ./src
 COPY ./public ./public
@@ -27,7 +28,7 @@ RUN chmod +x ./Docker/scripts/* && dos2unix ./Docker/scripts/*
 
 RUN ./Docker/scripts/generate_database.sh
 
-RUN RUN npm install --legacy-peer-deps
+RUN npm run build
 
 FROM node:20-alpine AS final
 
@@ -56,3 +57,4 @@ ENV DOCKER_ENV=true
 EXPOSE 8080
 
 ENTRYPOINT ["/bin/bash", "-c", ". ./Docker/scripts/deploy_database.sh && npm run start:prod" ]
+
